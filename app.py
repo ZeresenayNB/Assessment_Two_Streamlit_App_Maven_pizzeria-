@@ -283,7 +283,7 @@ with col_alert2:
 # -------------------------------------------------------------------
 st.markdown("""
 <div class="header-section" style="margin-top: 40px; background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);">
-    <div class="header-title">🍕 Section 7: Pizza Explorer Playground</div>
+    <div class="header-title">🍕 Section 6: Pizza Explorer Playground</div>
     <div class="header-subtitle">Have fun exploring pizzas — compare, filter, and discover insights visually</div>
 </div>
 """, unsafe_allow_html=True)
@@ -394,7 +394,7 @@ st.markdown("---")
 # ==========================================
 # 8. SUMMARY & BUSINESS INSIGHTS SECTION
 # ==========================================
-st.header("💡 Section 8: Summary & Business Insights")
+st.header("💡 Section 7: Summary & Business Insights")
 
 # ---------------------------
 # SAFE DATA SOURCE (FIXED)
@@ -446,7 +446,7 @@ else:
 # ==========================================
 # 8.1 KEY FINDINGS
 # ==========================================
-st.subheader("8.1 Key Findings")
+st.subheader("7.1 Key Findings")
 
 col_kf1, col_kf2 = st.columns(2)
 
@@ -473,7 +473,7 @@ st.success(f"""
 # ==========================================
 # 7. ETHICS SECTION
 # ==========================================
-st.header("🛡️ Section 7: Ethics, Privacy & Data Integrity")
+st.header("🛡️ Section 8: Ethics, Privacy & Data Integrity")
 
 with st.expander("View Ethics Analysis", expanded=True):
     st.markdown("""
