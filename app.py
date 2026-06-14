@@ -212,6 +212,26 @@ with col_chart4:
     st.plotly_chart(fig_hist, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
+st.markdown('<div class="pizza-box"><div class="pizza-box-badge">100%<br>Fresh</div><div class="pizza-box-title">🍕 Pizza Category Share</div><p style="color: #78350f; margin-bottom: 0;">Breakdown of pizzas sold by category</p></div>', unsafe_allow_html=True) 
+
+# Render the pie chart
+st.plotly_chart(fig_pie, use_container_width=True)
+
+# --- NEW STYLED DROPDOWN CODE ---
+# Use columns to center the dropdown beneath the circle so it doesn't stretch too wide
+col_spacer1, col_dropdown, col_spacer2 = st.columns([2, 3])
+
+with col_dropdown:
+    # Use an HTML header that perfectly matches the dark slate (#334155) used in your Section 2 chart containers
+    st.markdown('<h4 style="color: #334155; text-align: center; font-size: 15px; margin-bottom: -15px;">👇 Filter Category View:</h4>', unsafe_allow_html=True)
+    
+    # Create the dropdown, but collapse the default Streamlit label so the custom HTML one takes over
+    category_pick = st.selectbox(
+        "Filter Category View:",
+        options=["All Categories"] + sorted(df_sales['category'].dropna().unique().tolist()),
+        label_visibility="collapsed" 
+    )
+
 # -------------------------------------------------------------------
 # 8. DATA PROCESSING FOR SECTIONS 5 & 6 (FIXED)
 # -------------------------------------------------------------------
