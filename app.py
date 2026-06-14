@@ -587,12 +587,14 @@ with col1:
     st.markdown("""
     * Dataset: Maven Pizza Sales
     * Type: Relational CSV Dataset
-    * Source: Maven Analytics
+    * Source: Maven Analytics Data Playground
+    * Original Author: Vincent Arel-Bundock (RDatasets)
     """)
 
 with col2:
     st.markdown("""
     * Year: 2015 Snapshot
     * Purpose: Educational Analytics
+    * Contact: support@mavenanalytics.io
     * Link: https://www.mavenanalytics.io/data-playground
     """)
