@@ -136,13 +136,101 @@ with col_chart2:
     st.plotly_chart(fig_hourly, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- THE PIE CHART PIZZA BOX ---
-fig_pie = px.pie(category_sales, values='quantity', names='category', labels={'category': 'Pizza Category', 'quantity': 'Pizzas Sold'}, color='category', color_discrete_map={'Classic': '#f5cb5c', 'Veggie': '#2a9d8f', 'Chicken': '#f4a261', 'Supreme': '#e63946'})
-fig_pie.update_traces(textposition='inside', textinfo='percent+label', pull=[0.05, 0.05, 0.05, 0.05], marker=dict(line=dict(color='#8B4513', width=6)), hoverinfo='label+percent+value')
-fig_pie.update_layout(showlegend=True, legend_title_text='Pizza Types:', legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5), paper_bgcolor='rgba(0,0,0,0)', margin=dict(t=10, b=10, l=10, r=10))
 
-st.markdown('<div class="pizza-box"><div class="pizza-box-badge">100%<br>Fresh</div><div class="pizza-box-title">🍕 Pizza Category Share</div><p style="color: #78350f; margin-bottom: 0;">Breakdown of pizzas sold by category</p></div>', unsafe_allow_html=True)
+# -------------------------------------------------------------------
+# INTERACTIVE PIZZA CATEGORY SHARE
+# -------------------------------------------------------------------
+
+st.markdown(
+    '''
+    <div class="pizza-box">
+        <div class="pizza-box-badge">100%<br>Fresh</div>
+        <div class="pizza-box-title">🍕 Pizza Category Share</div>
+        <p style="color: #78350f; margin-bottom: 0;">
+            Breakdown of pizzas sold by category
+        </p>
+    </div>
+    ''',
+    unsafe_allow_html=True
+)
+
+col_left, col_mid, col_right = st.columns([3, 2, 3])
+
+with col_mid:
+    st.markdown(
+        '''
+        <h4 style="color:#334155;text-align:center;font-size:15px;margin-bottom:5px;">
+        👇 Filter Category View
+        </h4>
+        ''',
+        unsafe_allow_html=True
+    )
+
+    pie_category = st.selectbox(
+        "Category Filter",
+        ["All Categories"] + sorted(df_sales["category"].dropna().unique().tolist()),
+        label_visibility="collapsed"
+    )
+
+if pie_category == "All Categories":
+    pie_data = category_sales.copy()
+else:
+    pie_data = (
+        df_sales[df_sales["category"] == pie_category]
+        .groupby("category")["quantity"]
+        .sum()
+        .reset_index()
+    )
+
+fig_pie = px.pie(
+    pie_data,
+    values="quantity",
+    names="category",
+    color="category",
+    labels={"category": "Pizza Category", "quantity": "Pizzas Sold"},
+    color_discrete_map={
+        "Classic": "#f5cb5c",
+        "Veggie": "#2a9d8f",
+        "Chicken": "#f4a261",
+        "Supreme": "#e63946"
+    }
+)
+
+fig_pie.update_traces(
+    textposition="inside",
+    textinfo="percent+label",
+    pull=[0.05] * len(pie_data),
+    marker=dict(line=dict(color="#8B4513", width=6))
+)
+
+fig_pie.update_layout(
+    showlegend=True,
+    legend_title_text="Pizza Types",
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.2,
+        xanchor="center",
+        x=0.5
+    ),
+    paper_bgcolor="rgba(0,0,0,0)",
+    margin=dict(t=10, b=10, l=10, r=10)
+)
+
 st.plotly_chart(fig_pie, use_container_width=True)
+
+if pie_category != "All Categories":
+    qty = df_sales[df_sales["category"] == pie_category]["quantity"].sum()
+    revenue = df_sales[df_sales["category"] == pie_category]["total_price"].sum()
+
+    kpi1, kpi2 = st.columns(2)
+
+    with kpi1:
+        st.metric("🍕 Pizzas Sold", f"{qty:,.0f}")
+
+    with kpi2:
+        st.metric("💰 Revenue", f"${revenue:,.2f}")
+
 
 # -------------------------------------------------------------------
 # 6. DATA PROCESSING FOR SECTIONS 3 & 4
@@ -211,26 +299,6 @@ with col_chart4:
     
     st.plotly_chart(fig_hist, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown('<div class="pizza-box"><div class="pizza-box-badge">100%<br>Fresh</div><div class="pizza-box-title">🍕 Pizza Category Share</div><p style="color: #78350f; margin-bottom: 0;">Breakdown of pizzas sold by category</p></div>', unsafe_allow_html=True) 
-
-# Render the pie chart
-st.plotly_chart(fig_pie, use_container_width=True)
-
-# --- NEW STYLED DROPDOWN CODE ---
-# Use columns to center the dropdown beneath the circle so it doesn't stretch too wide
-col_spacer1, col_dropdown, col_spacer2 = st.columns([2, 3])
-
-with col_dropdown:
-    # Use an HTML header that perfectly matches the dark slate (#334155) used in your Section 2 chart containers
-    st.markdown('<h4 style="color: #334155; text-align: center; font-size: 15px; margin-bottom: -15px;">👇 Filter Category View:</h4>', unsafe_allow_html=True)
-    
-    # Create the dropdown, but collapse the default Streamlit label so the custom HTML one takes over
-    category_pick = st.selectbox(
-        "Filter Category View:",
-        options=["All Categories"] + sorted(df_sales['category'].dropna().unique().tolist()),
-        label_visibility="collapsed" 
-    )
 
 # -------------------------------------------------------------------
 # 8. DATA PROCESSING FOR SECTIONS 5 & 6 (FIXED)
@@ -303,7 +371,7 @@ with col_alert2:
 # -------------------------------------------------------------------
 st.markdown("""
 <div class="header-section" style="margin-top: 40px; background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);">
-    <div class="header-title">🍕 Section 6: Pizza Explorer Playground</div>
+    <div class="header-title">🍕 Section 7: Pizza Explorer Playground</div>
     <div class="header-subtitle">Have fun exploring pizzas — compare, filter, and discover insights visually</div>
 </div>
 """, unsafe_allow_html=True)
@@ -414,7 +482,7 @@ st.markdown("---")
 # ==========================================
 # 8. SUMMARY & BUSINESS INSIGHTS SECTION
 # ==========================================
-st.header("💡 Section 7: Summary & Business Insights")
+st.header("💡 Section 8: Summary & Business Insights")
 
 # ---------------------------
 # SAFE DATA SOURCE (FIXED)
@@ -466,7 +534,7 @@ else:
 # ==========================================
 # 8.1 KEY FINDINGS
 # ==========================================
-st.subheader("7.1 Key Findings")
+st.subheader("8.1 Key Findings")
 
 col_kf1, col_kf2 = st.columns(2)
 
@@ -493,7 +561,7 @@ st.success(f"""
 # ==========================================
 # 7. ETHICS SECTION
 # ==========================================
-st.header("🛡️ Section 8: Ethics, Privacy & Data Integrity")
+st.header("🛡️ Section 7: Ethics, Privacy & Data Integrity")
 
 with st.expander("View Ethics Analysis", expanded=True):
     st.markdown("""
@@ -519,14 +587,12 @@ with col1:
     st.markdown("""
     * Dataset: Maven Pizza Sales
     * Type: Relational CSV Dataset
-    * Source: Maven Analytics Data Playground
-    * Original Author: Vincent Arel-Bundock (RDatasets)
+    * Source: Maven Analytics
     """)
 
 with col2:
     st.markdown("""
     * Year: 2015 Snapshot
     * Purpose: Educational Analytics
-    * Contact: support@mavenanalytics.io
     * Link: https://www.mavenanalytics.io/data-playground
     """)
