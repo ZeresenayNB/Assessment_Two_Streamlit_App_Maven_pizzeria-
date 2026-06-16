@@ -351,7 +351,7 @@ col_alert1, col_alert2 = st.columns(2)
 with col_alert1:
     st.error(
         f"⚠️ **Low Performance Warning:**\n\n"
-        f"The **{worst_pizza_name}** is the worst-selling pizza, generating "
+        f"The Feta chicken pizza is the worst-selling pizza, generating "
         f"**${worst_pizza_rev:,.2f}** in total revenue. "
         f"Recommendation: consider reviewing pricing or removing it from the menu."
     )
