@@ -581,20 +581,21 @@ with st.expander("View Ethics Analysis", expanded=True):
 # ==========================================
 st.header("📄 Section 9: Dataset Metadata")
 
-col1, col2 = st.columns(2)
-
-with col1:
-    st.markdown("""
-    * Dataset: Maven Pizza Sales
-    * Type: Relational CSV Dataset
-    * Source: Maven Analytics Data Playground
-    * Original Author: Vincent Arel-Bundock (RDatasets)
-    """)
-
-with col2:
-    st.markdown("""
-    * Year: 2015 Snapshot
-    * Purpose: Educational Analytics
-    * Contact: support@mavenanalytics.io
-    * Link: https://www.mavenanalytics.io/data-playground
-    """)
+with st.expander("View Dataset Metadate","expanded=True):
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        * Dataset: Maven Pizza Sales
+        * Type: Relational CSV Dataset
+        * Source: Maven Analytics Data Playground
+        * Original Author: Vincent Arel-Bundock (RDatasets)
+        """)
+    
+    with col2:
+        st.markdown("""
+        * Year: 2015 Snapshot
+        * Purpose: Educational Analytics
+        * Contact: support@mavenanalytics.io
+        * Link: https://www.mavenanalytics.io/data-playground
+        """)
