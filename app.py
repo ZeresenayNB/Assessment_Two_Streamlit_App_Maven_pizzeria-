@@ -581,7 +581,7 @@ with st.expander("View Ethics Analysis", expanded=True):
 # ==========================================
 st.header("📄 Section 9: Dataset Metadata")
 
-with st.expander("View Dataset Metadate","expanded=True):
+with st.expander("View Dataset Metadate",expanded=True):
     col1, col2 = st.columns(2)
     
     with col1:
