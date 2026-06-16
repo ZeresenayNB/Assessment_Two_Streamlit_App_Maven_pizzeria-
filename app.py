@@ -99,7 +99,7 @@ category_sales = df_sales.groupby('category')['quantity'].sum().reset_index()
 # -------------------------------------------------------------------
 # 4. SECTION 1 UI: KEY METRICS (KPIs)
 # -------------------------------------------------------------------
-st.markdown('<div class="header-section"><div class="header-title">🍕 Maven Pizza Performance Dashboard</div><div class="header-subtitle">Section 1: Key Metrics (KPIs) - Executive Summary</div></div>', unsafe_allow_html=True)
+st.markdown('<div class="header-section"><div class="header-title">🍕 Platos Pizza: Maven Analytics Performance Dashboard</div><div class="header-subtitle">Section 1: Key Metrics (KPIs) - Executive Summary</div></div>', unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
