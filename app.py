@@ -563,7 +563,7 @@ st.success(f"""
 # ==========================================
 st.header("🛡️ Section 7: Ethics, Privacy & Data Integrity")
 
-with st.expander("View Ethics Analysis", expanded=True):
+with st.expander("View Ethics Analysis", expanded=False):
     st.markdown("""
     **Privacy & PII Handling:**  
     The dataset contains no personally identifiable information. All records are anonymized transactional logs.
@@ -581,7 +581,7 @@ with st.expander("View Ethics Analysis", expanded=True):
 # ==========================================
 st.header("📄 Section 9: Dataset Metadata")
 
-with st.expander("View Dataset Metadate",expanded=True):
+with st.expander("View Dataset Metadate",expanded=False):
     col1, col2 = st.columns(2)
     
     with col1:
